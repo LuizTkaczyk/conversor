@@ -1,1 +1,1 @@
-export * from './numero.directive'
+export * from './numero.directive';

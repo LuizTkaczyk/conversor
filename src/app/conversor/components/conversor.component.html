@@ -8,7 +8,7 @@
     </div>
     <div class="panel-body text-center">
         <form class="form-inline" #conversaoForm="ngForm">
-            <input type="text" name="valor" class="form-control text-right" placeholder="0" required
+            <input type="text" name="valor" class="form-control text-right" placeholder="0" required numero
                 [(ngModel)]="conversao.valor">
             <select name="moedaDe" class="form-control" required [(ngModel)]="conversao.moedaDe">
                 <option *ngFor="let moeda of moedas" [value]="moeda.sigla">
@@ -22,7 +22,16 @@
                 </option>
             </select>
             <input type="submit" value="Converter" class="btn btn-success" data-toggle="modal"
-                data-target="#modalCotacao" (click)="converter()" [disabled]="!conversaoForm.form.valid">
+                data-target="#modalCotacao" (click)="converter()" [disabled]="!conversaoForm.form.valid"> 
+                
         </form>
     </div>
+
+    <modal-cotacao
+    [id]="'modalCotacao'"
+    [conversaoResponse]="conversaoResponse"
+    [conversao] = "conversao"
+    (onConfirm)="init()"
+    
+    ></modal-cotacao>
 </div>

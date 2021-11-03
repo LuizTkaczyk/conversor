@@ -11,12 +11,12 @@ import { MoedaService, ConversorService } from '../services';
 })
 export class ConversorComponent implements OnInit {
 
-   moedas: Moeda[];
-   conversao: Conversao;
-   possuiErro: boolean;
-   conversaoResponse: ConversaoResponse;
+  moedas: Moeda[];
+  conversao: Conversao;
+  possuiErro: boolean;
+  conversaoResponse: ConversaoResponse;
 
-   @ViewChild("conversaoForm", { static: true }) conversaoForm: NgForm;
+  @ViewChild("conversaoForm", { static: true }) conversaoForm: NgForm;
 
   constructor(
     private moedaService: MoedaService,
@@ -29,14 +29,17 @@ export class ConversorComponent implements OnInit {
     this.init();
   }
 
-  init():void{
+  init(): void {
     this.conversao = new Conversao('USD', 'BRL', null);
     this.possuiErro = false
   }
 
-  converter():void{
-    if(this.conversaoForm.form.valid){
-      alert('Convertendo:' + JSON.stringify(this.conversao))
+  converter(): void {
+    if (this.conversaoForm.form.valid) {
+      this.conversorService
+        .converter(this.conversao)
+        .subscribe(response => this.conversaoResponse = response,
+          error => this.possuiErro = true)
     }
   }
 
